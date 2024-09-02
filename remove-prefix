@@ -1,0 +1,16 @@
+#! /usr/bin/python3
+
+import os
+import sys
+import subprocess
+
+if __name__ == "__main__":
+    if len(sys.argv[1:]) < 2:
+        name = os.path.basename(sys.argv[0])
+        sys.stderr.write(f"Usage: `$ {name} prefix file1 [file2 file3 ...]`\n")
+    else:
+        prefix = sys.argv[1]
+        for old_filename in sys.argv[2:]:
+            new_filename = old_filename.removeprefix(prefix)
+            if new_filename != old_filename:
+                subprocess.run(["mv", old_filename, new_filename])
